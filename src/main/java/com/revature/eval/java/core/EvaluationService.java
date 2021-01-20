@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class EvaluationService {
 
@@ -279,8 +280,14 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (num < 0) {
+			return -1;
+		}
+		String numStr = String.valueOf(num);
+		int first = Character.getNumericValue(numStr.charAt(0));
+		int last = Character.getNumericValue(numStr.charAt((numStr.length() - 1)));
+		int sum = first + last;
+		return sum;
 	}
 
 	/**
@@ -290,8 +297,12 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String reversed = "";
+		for (int i = (string.length() - 1); i >= 0; i--) {
+			String nextChar = String.valueOf((string.charAt(i)));
+			reversed = reversed.concat(nextChar);
+		}
+		return reversed;
 	}
 
 	/**
@@ -302,8 +313,15 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String acronym = "";
+		acronym = acronym.concat(String.valueOf(phrase.charAt(0)).toUpperCase());
+		for (int i = 1; i < phrase.length(); i++) {
+			char lastChar = phrase.charAt((i - 1));
+			if (lastChar == ' ' || lastChar == '-') {
+					acronym = acronym.concat(String.valueOf(phrase.charAt(i)).toUpperCase());
+			}
+		}
+		return acronym;
 	}
 
 	/**
@@ -358,18 +376,26 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if (sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			}else {
 			return false;
-		}
+		}}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			if ((sideOne == sideTwo && sideOne != sideThree) || ((sideOne == sideThree) && (sideOne != sideTwo)) || (sideTwo == sideThree && sideTwo != sideOne)) {
+				return true;
+			}else {
 			return false;
+		}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+			if (sideOne != sideTwo && sideTwo != sideThree && sideThree != sideOne) {
+				return true;
+			}else {
 			return false;
+		}
 		}
 
 	}
@@ -389,8 +415,33 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int score = 0;
+		for (int i = 0; i < string.length(); i++) {
+			char test = string.charAt(i);
+			test = Character.toUpperCase(test);
+			if (test == 'A' || test == 'E' || test == 'I' || test == 'O' || test == 'U' || test == 'L' || test == 'N' || test == 'R' || test == 'S' || test == 'T') {
+				score = score + 1;
+			}
+			else if (test == 'G') {
+				score += 2;
+			}
+			else if (test == 'B' || test == 'C' || test == 'M' || test == 'P') {
+				score += 3;
+			}
+			else if (test == 'F' || test == 'H' || test == 'V' || test == 'W' || test == 'Y') {
+				score += 4;
+			}
+			else if (test == 'K') {
+				score += 5;
+			}
+			else if (test == 'J' || test == 'X') {
+				score += 8;
+			}
+			else if (test == 'Q' || test == 'Z') {
+				score += 10;
+			}
+		}
+		return score;
 	}
 
 	/**
@@ -458,6 +509,7 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
+		
 		return false;
 	}
 
@@ -470,7 +522,6 @@ public class EvaluationService {
 	 * Note that 1 is not a prime number.
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
 		return null;
 	}
 
@@ -503,8 +554,47 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		string = string.toLowerCase();
+		List<Character> alphabet = new java.util.ArrayList();
+		alphabet.add('a');
+		alphabet.add('b');
+		alphabet.add('c');
+		alphabet.add('d');
+		alphabet.add('e');
+		alphabet.add('f');
+		alphabet.add('g');
+		alphabet.add('h');
+		alphabet.add('i');
+		alphabet.add('j');
+		alphabet.add('k');
+		alphabet.add('l');
+		alphabet.add('m');
+		alphabet.add('n');
+		alphabet.add('o');
+		alphabet.add('p');
+		alphabet.add('q');
+		alphabet.add('r');
+		alphabet.add('s');
+		alphabet.add('t');
+		alphabet.add('u');
+		alphabet.add('v');
+		alphabet.add('w');
+		alphabet.add('x');
+		alphabet.add('y');
+		alphabet.add('z');
+		for (int i = 0; i < string.length(); i++) {
+			char test = string.charAt(i);
+			boolean remove = alphabet.contains(test);
+			if (remove == true) {
+				alphabet.remove(alphabet.indexOf(test));
+				remove = false;
+			}
+		}
+		if (alphabet.isEmpty()) {
+			return true;
+		}else {
 		return false;
+		}
 	}
 
 	/**
@@ -533,7 +623,12 @@ public class EvaluationService {
 	 */
 	
 	public int[] threeLuckyNumbers() {
-		return null;
+		Random rand = new java.util.Random();
+		int a = rand.nextInt(101);
+		int b = rand.nextInt(101);
+		int c = rand.nextInt(101);
+		int[] randoms = {a, b, c};
+		return randoms;
 	}
 	
 	/*
@@ -547,6 +642,7 @@ public class EvaluationService {
 	 */
 	
 	public int guessingGame(int x, int y) {
+		
 		return 0;
 	}
 }
