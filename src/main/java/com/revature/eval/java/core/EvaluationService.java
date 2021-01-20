@@ -21,7 +21,12 @@ public class EvaluationService {
 	static class SpeedConverter {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
+			if (kilometersPerHour < 0) {
+				return -1;
+			}
+			else if (kilometersPerHour >= 0){
+				return Math.round((kilometersPerHour * .621371)); //Conversion factor sourced from Google.
+			}
 			return 0;
 		}
 
@@ -41,8 +46,13 @@ public class EvaluationService {
 		 * Value"
 		 */
 		public static String printConversion(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			long mph = toMilesPerHour(kilometersPerHour);
+			if (mph < 0) {
+				return "Invalid Value";
+			}
+			String MPH = String.valueOf(mph);
+			String output = String.valueOf(kilometersPerHour) + " km/h = " + MPH + " mi/h"; 
+			return output;
 		}
 	}
 
@@ -66,9 +76,15 @@ public class EvaluationService {
 	 * If the parameter kiloBytes is less than 0 then print the text "Invalid
 	 * Value".
 	 */
-	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public String printMegaBytesAndKiloBytes(int kB) {
+		if (kB < 0) {
+			String outString = "Invalid Value";
+			return outString;
+		}
+		int mB = kB/1024;
+		int kBLeft = kB % 1024;
+		String outString = String.valueOf(kB) + " KB = " + mB + " MB and " + kBLeft + " KB";
+		return outString;
 	}
 
 	/**
@@ -91,8 +107,25 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		boolean shouldWakeUp = false;
+		if (isBarking) {
+			if ((hourOfDay < 8) || (hourOfDay > 22)){
+				shouldWakeUp = true;
+				if (hourOfDay < 0 || hourOfDay > 23) {
+					shouldWakeUp = false;
+					return shouldWakeUp;
+			}
+			else if (hourOfDay > 8 && hourOfDay < 22) {
+				shouldWakeUp = false;
+				return shouldWakeUp;
+			}
+			}
+			else {
+			shouldWakeUp = false;
+			return shouldWakeUp;
+			}
+		}
+		return shouldWakeUp;
 	}
 
 	/**
@@ -107,7 +140,7 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
+		//TODO; Not really sure how to handle this one.
 		return false;
 	}
 
@@ -124,16 +157,23 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
+			if (isTeen(x) || isTeen(y) || isTeen(z)) {
+				return true;
+			}else {
 			return false;
+			}
 		}
 
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
-			// TODO Write an implementation for this method declaration
+			if (number < 20 && number > 12) {
+				return true;
+			}
+			else {
 			return false;
+			}
 		}
 	}
 
@@ -153,8 +193,16 @@ public class EvaluationService {
 	 * ZZ represents the calculated days.
 	 */
 	public String printYearsAndDays(long minutes) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if (minutes < 0) {
+			System.out.println("Invalid Value");
+			return null;
+		}
+		long years = (minutes / (525600));
+		System.out.println(String.valueOf(years));
+		long days = ((minutes % 525600) / (24*60));
+		System.out.println(String.valueOf(days));
+		String output = String.valueOf(minutes) + " min = " + String.valueOf(years) + " y and " + String.valueOf(days) + " d";
+		return output;
 	}
 
 	/**
@@ -167,8 +215,30 @@ public class EvaluationService {
 	 * statement or switch statement whatever is easier for you.
 	 */
 	public String printNumberInWord(int number) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		switch (number) {
+			case 0:
+				return "ZERO";
+			case 1:
+				return "ONE";
+			case 2:
+				return "TWO";
+			case 3:
+				return "THREE";
+			case 4:
+				return "FOUR";
+			case 5:
+				return "FIVE";
+			case 6:
+				return "SIX";
+			case 7:
+				return "SEVEN";
+			case 8:
+				return "EIGHT";
+			case 9:
+				return "NINE";
+			default:
+				return "OTHER";
+	}
 	}
 
 	/**
